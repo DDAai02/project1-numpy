@@ -2,11 +2,11 @@
 
 用课程提供的固定权重运行 ViT-B-32 图像编码器。每张图片输出一个 512 维单位向量。
 
-## 三步复现（Windows）
+## 复现指引（Windows）
 
 **1. 准备两个文件夹。** 解压本仓库和教师发的 `project1-学生版.zip`。找到仓库中含 `environment.yml` 的目录，以及教师附件中含 `check.py`、`run.py`、`weights/` 和 `assets/` 的目录。完整检查需要教师附件里的权重和参考数据。
 
-在 **Anaconda PowerShell Prompt** 中把下方两条示例路径替换成实际路径，并运行命令。首次运行需创建环境。如果已经有 `project1-numpy` 环境，跳过 `conda env create` 那一行。
+把下列终端指令前两行中的示例路径替换成实际路径，并运行命令。首次运行需创建环境。
 
 ```powershell
 $codeDir = 'D:\course\project1-numpy'
