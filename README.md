@@ -4,7 +4,7 @@
 
 ## 复现指引（Windows）
 
-**1. 准备两个文件夹。** 解压本仓库和教师发的 `project1-学生版.zip`。找到仓库中含 `environment.yml` 的目录，以及教师附件中含 `check.py`、`run.py`、`weights/` 和 `assets/` 的目录。完整检查需要教师附件里的权重和参考数据。
+**1. 准备好两个文件夹。** 解压本仓库和教师发的 `project1-学生版.zip`。找到仓库中含 `environment.yml` 的目录，以及教师附件中含 `check.py`、`run.py`、`weights/` 和 `assets/` 的目录。因为完整检查需要教师附件里的权重和参考数据。
 
 把下列终端指令前两行中的示例路径替换成实际路径，并运行命令。首次运行需创建环境。
 
@@ -16,7 +16,7 @@ conda env create -f environment.yml
 conda activate project1-numpy
 ```
 
-**2. 复制实现。** 在同一个窗口运行下面两行。第一行用仓库里的 `image_encoder.py` 覆盖教师附件中的待完成版本，并把 `numpy_homework.py` 放到旁边。第二行切换到教师附件目录，后续命令都在这里运行。
+**2. 复制一下实现。** 在同一个窗口运行下面两行。第一行用仓库里的 `image_encoder.py` 覆盖教师附件中的待完成版本，并把 `numpy_homework.py` 放到旁边。第二行切换到教师附件目录，后续命令都在这里运行。
 
 ```powershell
 Copy-Item -LiteralPath "$codeDir\image_encoder.py", "$codeDir\numpy_homework.py" -Destination $starterDir -Force
@@ -38,7 +38,3 @@ python numpy_homework.py
 | `numpy_homework.py` | 输出 12 道题的结果，末行显示 `Required boundary checks: PASS`。 |
 
 可对照[完整检查日志](results/check_all.txt)和[练习输出](results/numpy_homework_results.txt)。如果 `preprocess` 失败，先确认已激活上面的环境，然后运行 `python check.py --stage preprocess` 单独定位问题。
-
-## 来源
-
-框架、权重和参考输出由课程提供。实现结构参考 [OpenCLIP](https://github.com/mlfoundations/open_clip)，使用 Codex 辅助实现和验证。
