@@ -1,0 +1,98 @@
+NP-E1: arrays, shapes, slicing and a separate copy
+A.ndim = 2 A.shape = (3, 4) A.size = 12
+second row: shape=(4,)
+[ 0.8  0.3 -0.7  0.6]
+last two columns: shape=(3, 2)
+[[ 1.1  0.4]
+ [-0.7  0.6]
+ [ 0.1 -0.2]]
+B: shape=(3, 4)
+[[0.2 0.  1.1 0.4]
+ [0.8 0.3 0.  0.6]
+ [0.  0.9 0.1 0. ]]
+unchanged A: shape=(3, 4)
+[[ 0.2 -0.5  1.1  0.4]
+ [ 0.8  0.3 -0.7  0.6]
+ [-0.4  0.9  0.1 -0.2]]
+
+NP-E2: elementwise product, dot product and lengths
+a * b: shape=(3,)
+[-0.16 -0.54  0.28]
+a @ b: shape=()
+-0.4200000000000001
+a length = 1.2206555615733703
+b length = 1.0049875621120892
+
+NP-E3: angle
+degrees: shape=()
+45.00000000000001
+
+NP-E4: distances
+p - q: shape=(3,)
+[-1.3  1.6  0.9]
+Euclidean: shape=()
+2.249444375840399
+Manhattan: shape=()
+3.8000000000000003
+
+NP-E5: unit vector
+unit vector: shape=(3,)
+[-0.801784  0.267261  0.534522]
+unit length: True
+
+NP-E6: reductions
+sum(axis=0), one sum per column: shape=(3,)
+[ 1.  -0.1  0.8]
+mean(axis=1), one mean per row: shape=(2,)
+[0.266667 0.3     ]
+overall maximum: shape=()
+1.1
+
+NP-E7: scale and bias broadcast across rows
+Y = X * scale + bias: shape=(2, 3)
+[[ 1.1  -0.1  -0.4 ]
+ [-0.7   0.45  0.1 ]]
+
+NP-E8: image batch
+BCHW: (2, 3, 2, 2)
+blue channels: shape=(2, 2, 2)
+[[[-0.1  0.6]
+  [ 0.4 -0.3]]
+
+ [[ 0.   0.7]
+  [ 0.5 -0.2]]]
+BHWC: (2, 2, 2, 3)
+
+NP-M1: angles to all rows
+angles: shape=(4,)
+[  0. 180.  90.  nan]
+
+NP-M2: stable top-k cosine retrieval
+indices: shape=(3,)
+[0 1 2]
+similarities: shape=(3,)
+[1. 1. 0.]
+selected IDs: shape=(3,)
+['img_a' 'img_b' 'img_c']
+
+NP-M3: all pairwise distances
+broadcast difference shape: (3, 2, 2)
+D: shape=(3, 2)
+[[0.608276 0.824621]
+ [0.707107 1.486607]
+ [0.781025 0.905539]]
+nearest B indices: shape=(3,)
+[0 0 0]
+
+NP-M4: linear -> ReLU -> linear (provided parameters)
+Z: shape=(2, 2)
+[[-0.91  0.66]
+ [-0.93  0.27]]
+H: shape=(2, 2)
+[[0.   0.66]
+ [0.   0.27]]
+Y: shape=(2, 2)
+[[-0.296   0.1432]
+ [-0.062  -0.0596]]
+
+Required boundary checks: PASS

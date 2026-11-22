@@ -1,0 +1,44 @@
+[
+  {
+    "stage": "preprocess",
+    "shape": "(10, 3, 224, 224)",
+    "max_abs": 0.0,
+    "mean_abs": 0.0
+  },
+  {
+    "stage": "patches",
+    "shape": "(2, 49, 3072)",
+    "max_abs": 0.0,
+    "mean_abs": 0.0
+  },
+  {
+    "stage": "tokens",
+    "shape": "(2, 50, 768)",
+    "max_abs": 4.768e-05,
+    "mean_abs": 1.29e-06
+  },
+  {
+    "stage": "block0",
+    "shape": "(2, 50, 768)",
+    "max_abs": 5.871e-06,
+    "mean_abs": 3.211e-07
+  },
+  {
+    "stage": "last_tokens",
+    "shape": "(2, 50, 768)",
+    "max_abs": 4.578e-05,
+    "mean_abs": 2.655e-06
+  },
+  {
+    "stage": "output",
+    "shape": "(10, 512)",
+    "max_abs": 5.811e-07,
+    "mean_abs": 8.099e-08
+  },
+  {
+    "stage": "batch",
+    "shape": "(3, 512)",
+    "max_abs": 4.694e-07,
+    "mean_abs": 7.473e-08
+  }
+]

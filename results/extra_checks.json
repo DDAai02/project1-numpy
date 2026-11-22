@@ -1,0 +1,10 @@
+{
+  "patch_order_unique_pixels": "PASS",
+  "generic_head_partition": "PASS",
+  "causal_future_independence": "PASS",
+  "noncausal_future_visibility": "PASS",
+  "unseen_random_images": "PASS",
+  "single_batch_equivalence": "PASS",
+  "batch_max_abs": 1.2665987014770508e-07,
+  "non_reference_png_and_duplicates": "PASS"
+}
