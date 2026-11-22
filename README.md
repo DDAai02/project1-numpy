@@ -1,81 +1,44 @@
-# Project 1：以 NumPy 复现 OpenCLIP 图像编码器
+# Project 1：用 NumPy 复现 OpenCLIP 图像编码器
 
-使用课程提供的固定视觉参数，完成 ViT-B-32 图像编码器的六组 NumPy 实现。
-输入为 float32 `[B,3,224,224]`，输出为 float32 `[B,512]` 单位向量。
-不训练模型，也不依赖 PyTorch 进行编码器计算。
+用课程提供的固定权重运行 ViT-B-32 图像编码器。每张图片输出一个 512 维单位向量。
 
-## 文件
+## 三步复现（Windows）
 
-- `image_encoder.py`：完成的六组计算，保留课程公共接口。
-- `numpy_homework.py`：NP-E1..E8、NP-M1..M4 的实现、运行入口和必要边界检查。
-- `results/`：逐阶段数值误差、额外检查和练习的真实运行结果。
-- `tools/verify_extra.py`：使用新输入检查切块顺序、batch 一致性和注意力兼容性。
-- `requirements.txt`、`environment.yml`：本项目的精简复现依赖。
+**1. 准备两个文件夹。** 解压本仓库和教师发的 `project1-学生版.zip`。找到仓库中含 `environment.yml` 的目录，以及教师附件中含 `check.py`、`run.py`、`weights/` 和 `assets/` 的目录。完整检查需要教师附件里的权重和参考数据。
 
-教师要求不重复提交大体积参数和参考数据，因此运行需要课程提供的原始附件。
+在 **Anaconda PowerShell Prompt** 中把下方两条示例路径替换成实际路径，并运行命令。首次运行需创建环境。如果已经有 `project1-numpy` 环境，跳过 `conda env create` 那一行。
 
-## 环境
-
-`environment.yml` 定义了独立的 `project1-numpy` Conda 环境。
-
-```bash
+```powershell
+$codeDir = 'D:\course\project1-numpy'
+$starterDir = 'D:\course\project1-numpy-student'
+Set-Location -LiteralPath $codeDir
 conda env create -f environment.yml
 conda activate project1-numpy
 ```
 
-环境已存在时直接激活。也可以在 Python 3.12 环境中安装：
+**2. 复制实现。** 在同一个窗口运行下面两行。第一行用仓库里的 `image_encoder.py` 覆盖教师附件中的待完成版本，并把 `numpy_homework.py` 放到旁边。第二行切换到教师附件目录，后续命令都在这里运行。
 
-```bash
-python -m pip install -r requirements.txt
+```powershell
+Copy-Item -LiteralPath "$codeDir\image_encoder.py", "$codeDir\numpy_homework.py" -Destination $starterDir -Force
+Set-Location -LiteralPath $starterDir
 ```
 
-已验证版本：Python 3.12.12、NumPy 1.26.4、Pillow 12.1.1、imageio 2.37.2。
-Pillow 使用 libjpeg-turbo。原 Anaconda base 的 JPEG 解码环境曾导致预处理与参考不一致，
-因此应先运行预处理检查，且不要通过修改检查器或容差消除差异。
+**3. 检查并生成结果。**
 
-## 运行与验证
-
-1. 解压教师提供的 `project1-numpy-student` 附件。
-2. 将本仓库的 `image_encoder.py` 覆盖到附件目录，并将 `numpy_homework.py` 放入同一目录。
-3. 保留教师提供的 `helpers.py`、检查器、预处理、参数、图片及参考数据。
-4. 在附件目录运行：
-
-```bash
+```powershell
 python check.py --stage all
 python run.py --output output_tokens.npz
 python numpy_homework.py
 ```
 
-处理自己的图片：
+| 命令 | 成功时应看到 |
+| --- | --- |
+| `check.py` | 8 项检查均显示 `PASS`。十张图像最终输出的实测最大绝对误差为 `5.811e-7`。 |
+| `run.py` | 显示 `Saved (10, 512) to output_tokens.npz`，文件生成在教师附件目录。 |
+| `numpy_homework.py` | 输出 12 道题的结果，末行显示 `Required boundary checks: PASS`。 |
 
-```bash
-python run.py --images path/to/a.jpg path/to/b.png --output my_tokens.npz
-```
+可对照[完整检查日志](results/check_all.txt)和[练习输出](results/numpy_homework_results.txt)。如果 `preprocess` 失败，先确认已激活上面的环境，然后运行 `python check.py --stage preprocess` 单独定位问题。
 
-从本仓库目录运行额外验证，把 `TEACHER_STARTER` 替换为实际附件目录：
+## 来源
 
-```bash
-python tools/verify_extra.py --starter "TEACHER_STARTER" --output extra_checks.json
-```
-
-## 验证结果
-
-官方 assets、preprocess、patches、tokens、block0、last_tokens、output、batch 全部通过。
-详细最大/平均绝对误差见 `results/check_all.txt` 和 `results/stage_errors.json`。
-最终十张图片输出的最大绝对误差为 `5.811e-7`，平均绝对误差为 `8.099e-8`。
-额外测试验证了新随机图片、单张与批量一致性、非参考 PNG、patch 顺序、通用头数与 causal 开关。
-数值结果按各阶段的 `atol + rtol * abs(reference)` 判断，不要求逐位相等。
-
-## 实现约定
-
-- 每个 patch 保持 C/H/W 展平顺序，网格按行排列。
-- 普通线性权重使用 `weight.T`；`visual.proj` 已经是 `[768,512]`，直接相乘。
-- 多头注意力只交换 K 的最后两轴，合并时先恢复 token/head 轴顺序。
-- 保留两次残差和提供的精确 GELU；图片不启用 causal mask。
-- 编码器不读取参考输出；参考数据只供外部检查器使用。
-
-## 来源与协助
-
-框架、辅助函数、图片、参数和参考输出由课程提供；本次补全六组计算并完成配套练习。
-使用 Codex 辅助实现、运行验证和定位环境差异。
-模型结构参考 [OpenCLIP](https://github.com/mlfoundations/open_clip)。
+框架、权重和参考输出由课程提供。实现结构参考 [OpenCLIP](https://github.com/mlfoundations/open_clip)，使用 Codex 辅助实现和验证。
