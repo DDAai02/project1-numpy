@@ -1,6 +1,4 @@
-"""期末项目的图像编码器。
-
-使用 NumPy 完成 TODO-01 到 TODO-06，模型参数由课程提供。
+"""使用 NumPy 完成 TODO-01 到 TODO-06，模型参数由课程提供。
 公开类沿用期末项目的接口，辅助函数来自课程提供的 helpers.py。
 """
 import numpy as np
