@@ -1,6 +1,6 @@
 # Project 1：用 NumPy 复现 ViT-B/32 图像编码器
 
-用课程提供的预训练权重完成 `image_encoder.py` 里的六组共10个TODO，将每张图片编码成一个归一化的 512 维向量。
+用NumPy相关知识完成 `image_encoder.py` 里的六组共10个TODO，将每张图片编码成一个归一化的 512 维向量。
 在 `image_encoder.py` 已经用*****框住了所有要求完成的内容，并附上了注释。
 
 ## 复现流程
@@ -19,8 +19,6 @@ python run.py --output output_tokens.npz
 - `run.py` 生成 `output_tokens.npz`，其中包含 10 个图片 ID 和形状为 `(10, 512)` 的特征向量数组。
 
 
-
-
 ### 配套练习
 
-`numpy_homework.ipynb`即为完成的配套练习。
+`numpy_homework.ipynb`为配套练习`project1_exercises.pdf`的完成内容。其原为.py文件，利用AI将其转为.ipynb文件，已人工核验核心内容未改变。
