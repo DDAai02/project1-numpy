@@ -21,4 +21,4 @@ python run.py --output output_tokens.npz
 
 ### 配套练习
 
-`numpy_homework.ipynb`为配套练习`project1_exercises.pdf`的完成内容。其原为.py文件，利用AI将其转为.ipynb文件，已人工核验核心内容未改变。
+`numpy_homework.ipynb` 为配套练习 `project1_exercises.pdf` 的完成内容。其原为.py文件，利用AI将其转为.ipynb文件，已人工核验核心内容未改变。
