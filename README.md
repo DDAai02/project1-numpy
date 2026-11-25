@@ -19,6 +19,8 @@ python run.py --output output_tokens.npz
 - `run.py` 生成 `output_tokens.npz`，其中包含 10 个图片 ID 和形状为 `(10, 512)` 的特征向量数组。
 
 
-## 配套练习
+
+
+### 配套练习
 
 `numpy_homework.ipynb`即为完成的配套练习。
